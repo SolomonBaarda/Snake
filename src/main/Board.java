@@ -6,7 +6,7 @@ public class Board {
 
 	private Cell[][] board;
 	private Point boardSize;
-	
+
 	public final Point CENTRE_OF_CANVAS;
 
 	public Board(Point p) {
@@ -17,17 +17,17 @@ public class Board {
 		boardSize = new Point(columnCount, rowCount);
 		CENTRE_OF_CANVAS = new Point(boardSize.x / 2, boardSize.y / 2);
 
-		// Create board size
+		// Create new board
 		board = new Cell[boardSize.x][boardSize.y];
-		
+
+		// Initialise each cell in the board
 		for(int row = 0; row < boardSize.y; row++) 
 			for(int col = 0; col < boardSize.x; col++) {
 				board[col][row] = new Cell(col, row);
-			
-		}
-		
+			}
+
 	}
-	
+
 
 	/**
 	 * Method that takes a cell and direction and returns the next cell in that direction.
@@ -35,81 +35,83 @@ public class Board {
 	 * @param direction
 	 * @return
 	 */
-	public Cell getNextCell(Cell currentCell, Direction direction) {
-		if(direction != Direction.None) {
-			int newRow = currentCell.getRow();
+	public Cell getAdjacentCell(Cell currentCell, Direction currentDirection) {
+		if(currentDirection != Direction.None) {
 			int newCol = currentCell.getCol();
-			
-			if(direction == Direction.North) {
+			int newRow = currentCell.getRow();
+
+			if(currentDirection == Direction.North) {
 				newRow--;
 			}
-			else if(direction == Direction.East) {
+			if(currentDirection == Direction.East) {
 				newCol++;
 			}
-			else if(direction == Direction.South) {
+			if(currentDirection == Direction.South) {
 				newRow++;
 			}
-			else if(direction == Direction.West) {
+			if(currentDirection == Direction.West) {
 				newCol--;
 			}
-			
+
 			// Allow wrap around the screen
 			if(newRow >= boardSize.y) {
 				newRow = 0;
 			}
 			else if(newRow < 0) {
-				newRow = boardSize.y;
+				newRow = boardSize.y-1;
 			}
-			
+
 			if(newCol >= boardSize.x) {
 				newCol = 0;
 			}
 			else if(newCol < 0) {
-				newCol = boardSize.x;
+				newCol = boardSize.x-1;
 			}
-				
-			return board[newRow][newCol];
+
+			return getCell(newCol, newRow);
 		}
 		else {
 			return null;
 		}
 	}
-	
+
+
+
+
 	public void printBoard() {
 		System.out.println("Canvas size: "+ boardSize.x +" x "+ boardSize.y);
-		
+
 		for(int row = 0; row < boardSize.y; row++) {
 			for(int column = 0; column < boardSize.x; column++) {
-				System.out.print(board[column][row].getContent() +" ");
+				System.out.print(getCell(column, row).getContent() +" ");
 			}
 			System.out.println();
 		}
-		
+
 	}
-	
-	
+
+
 	public void generateFood(Point boardBoundries) {
-		
 		int newRow = (int) (Math.random() * boardBoundries.y);
 		int newCol = (int) (Math.random() * boardBoundries.x);
-		
-		board[newCol][newRow].setContent(CellType.Food);
-		System.out.println("Cell "+ newCol +","+ newRow +" set as food.");
+
+		getCell(newCol, newRow).setContent(CellType.Food);
 	}
+
 
 	public Point getBoardSize() {
 		return boardSize;
 	}
 
 	public Cell getCell(int col, int row) {
-		return board[row][col];
+		return board[col][row];
 	}
 
 	public Cell[][] getBoard() {
 		return board;
 	}
 
-	
-	
-	
+
+
+
 }

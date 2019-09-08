@@ -2,29 +2,21 @@ package main;
 
 public class Cell {
 	private CellType content;
-	private int row, col;	
-	
-	
-	public Cell(int row, int col) {
+	private int col, row;	
+
+
+	public Cell(int col, int row) {
 		content = CellType.Empty;
-		this.row = row;
 		this.col = col;
+		this.row = row;
 	}
 
-	
-	
-	
-	
-	
+
 
 	@Override
 	public String toString() {
-		return "Cell(" +row+ "," +col+ ") [content: " +content+ "]";
+		return "Cell(" +col+ "," +row+ ") [content: " +content+ "]";
 	}
-
-
-
-
 
 
 
@@ -56,9 +48,9 @@ public class Cell {
 	public void setCol(int col) {
 		this.col = col;
 	}
-	
-	
-	
-	
+
+
+
+
 }
 

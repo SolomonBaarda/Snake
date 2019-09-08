@@ -23,6 +23,7 @@ public class Renderer {
 			for(int col = 0; col < board.getBoardSize().x; col++) {
 				
 				Cell currentCell  = board.getCell(col, row);
+				
 				if(currentCell.getContent() == CellType.Empty) {
 					g.setColor(Color.black);
 				}
@@ -33,7 +34,7 @@ public class Renderer {
 					g.setColor(Color.red);
 				}
 				
-				g.fillRect(row * cellSize, col * cellSize, cellSize, cellSize);
+				g.fillRect(col * cellSize, row * cellSize, cellSize, cellSize);
 			}
 	}
 

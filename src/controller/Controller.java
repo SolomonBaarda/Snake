@@ -4,17 +4,32 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 import gameObjects.Snake;
+import main.Direction;
 
 public class Controller implements KeyListener {
-	Snake snake;
-	
+	private Snake snake;
+
 	public Controller(Snake snake) {
 		this.snake = snake;
 	}
 
+
 	@Override
 	public void keyPressed(KeyEvent e) {
-		// TODO Auto-generated method stub
+		int key = e.getKeyCode();
+
+		if(key == KeyEvent.VK_W) {
+			snake.setCurrentDirection(Direction.North);
+		}
+		if(key == KeyEvent.VK_D) {
+			snake.setCurrentDirection(Direction.East);
+		}
+		if(key == KeyEvent.VK_S) {
+			snake.setCurrentDirection(Direction.South);
+		}
+		if(key == KeyEvent.VK_A) {
+			snake.setCurrentDirection(Direction.West);
+		}
 
 	}
 
@@ -24,18 +39,10 @@ public class Controller implements KeyListener {
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		// TODO Auto-generated method stub
-
 	}
-
-
-
-
 
 	@Override
 	public void keyTyped(KeyEvent e) {
-		// TODO Auto-generated method stub
-
 	}
 
 
