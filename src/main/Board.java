@@ -27,49 +27,6 @@ public class Board {
 		}
 		
 	}
-
-
-//	/**
-//	 * Adds GameObject to centre of canvas.
-//	 * @param o
-//	 */
-//	public void addToCanvas(GameObject o) {
-//		addToCanvas(o, CENTRE_OF_CANVAS);
-//	}
-//
-//	/**
-//	 * Adds GameObject to canvas at point p. 
-//	 * @param o
-//	 * @param p
-//	 */
-//	public void addToCanvas(GameObject object, Point p) {
-//
-//		// if snake
-//		if(object instanceof Snake) {
-//			int snakeSize = ((Snake)object).getLength();
-//			
-//			// Set head of snake
-//			canvas[CENTRE_OF_CANVAS.x][CENTRE_OF_CANVAS.y].content = CellContent.SnakeHead;
-//			// Set body of snake
-//			for(int remainingLength = snakeSize - 2; remainingLength > 0; remainingLength--) {
-//				canvas[CENTRE_OF_CANVAS.x - remainingLength][CENTRE_OF_CANVAS.y].content = CellContent.SnakeBody;
-//			}
-//			// Set tail of snake
-//			canvas[CENTRE_OF_CANVAS.x - snakeSize + 1][CENTRE_OF_CANVAS.y].content = CellContent.SnakeTail;
-//		}
-//	}
-//
-//
-//	public void render() {
-//		for(int i = 0; i < canvasSize.x; i++)
-//			for(int k = 0; k < canvasSize.y; k++) {
-//
-//			}
-//	}
-	
-//	public void update() {
-//		
-//	}
 	
 
 	/**
@@ -80,38 +37,38 @@ public class Board {
 	 */
 	public Cell getNextCell(Cell currentCell, Direction direction) {
 		if(direction != Direction.None) {
-			int row = currentCell.getRow();
-			int col = currentCell.getCol();
+			int newRow = currentCell.getRow();
+			int newCol = currentCell.getCol();
 			
 			if(direction == Direction.North) {
-				row--;
+				newRow--;
 			}
 			else if(direction == Direction.East) {
-				col++;
+				newCol++;
 			}
 			else if(direction == Direction.South) {
-				row++;
+				newRow++;
 			}
 			else if(direction == Direction.West) {
-				col--;
+				newCol--;
 			}
 			
 			// Allow wrap around the screen
-			if(row >= boardSize.y) {
-				row = 0;
+			if(newRow >= boardSize.y) {
+				newRow = 0;
 			}
-			else if(row < 0) {
-				row = boardSize.y;
+			else if(newRow < 0) {
+				newRow = boardSize.y;
 			}
 			
-			if(col >= boardSize.x) {
-				col = 0;
+			if(newCol >= boardSize.x) {
+				newCol = 0;
 			}
-			else if(col < 0) {
-				col = boardSize.x;
+			else if(newCol < 0) {
+				newCol = boardSize.x;
 			}
 				
-			return board[col][row];
+			return board[newRow][newCol];
 		}
 		else {
 			return null;
@@ -155,5 +112,4 @@ public class Board {
 	
 	
 	
-
 }

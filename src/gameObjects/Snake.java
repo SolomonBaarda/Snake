@@ -24,9 +24,6 @@ public class Snake extends GameObject {
 	}
 
 
-	public void incrementLength() {
-		snakeBody.add(head);
-	}
 
 
 	public boolean validMove(Cell destination) {
@@ -39,15 +36,21 @@ public class Snake extends GameObject {
 		return true;
 	}
 
-
-	public void move(Cell destination) {
+	public void moveAndGrow(Cell destination) {
 		head = destination;
 		head.setContent(CellType.Snake);
 		snakeBody.addFirst(head);
-
+	}
+	
+	public void moveWithoutGrow(Cell destination) {
+		moveAndGrow(destination);
+		
 		Cell tail = snakeBody.removeLast();
 		tail.setContent(CellType.Empty);
 	}
+	
+	
+
 
 
 	public Cell getHead() {

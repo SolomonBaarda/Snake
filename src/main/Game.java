@@ -12,7 +12,7 @@ import utils.Point;
 public class Game implements Runnable {
 
 	public static final Point DEFAULT_BOARD_SIZE = new Point(32, 32);
-	public static final int DEFAULT_CELL_SIZE = 32;
+	public static final int DEFAULT_CELL_SIZE = 24; // Pixels
 	public static final Point DEFAULT_DISPLAY_SIZE = new Point(DEFAULT_BOARD_SIZE.x * DEFAULT_CELL_SIZE, DEFAULT_BOARD_SIZE.y * DEFAULT_CELL_SIZE);
 
 	private Snake snake;
@@ -26,7 +26,9 @@ public class Game implements Runnable {
 	public Game() {
 		board = new Board(DEFAULT_BOARD_SIZE);
 		board.generateFood(board.getBoardSize());
-		snake = new Snake(board.getCell(board.CENTRE_OF_CANVAS.y, board.CENTRE_OF_CANVAS.x));
+		snake = new Snake(board.getCell(board.CENTRE_OF_CANVAS.y, board.CENTRE_OF_CANVAS.x - 2));
+		snake.moveAndGrow(board.getCell(board.CENTRE_OF_CANVAS.y, board.CENTRE_OF_CANVAS.x - 1));
+		snake.moveAndGrow(board.getCell(board.CENTRE_OF_CANVAS.y, board.CENTRE_OF_CANVAS.x));
 
 		controller = new Controller(snake);
 		display = new Display(DEFAULT_DISPLAY_SIZE);
@@ -42,20 +44,31 @@ public class Game implements Runnable {
 			if(snake.getCurrentDirection() != Direction.None) {
 				// Get reference to next cell
 				Cell nextCell = board.getNextCell(snake.getHead(), snake.getCurrentDirection());
+
 				// Check for valid move
 				if(snake.validMove(nextCell)) {
-					// Eat food 
+					// Eat food (move and grow)
 					if(nextCell.getContent() == CellType.Food) {
-						snake.incrementLength();
+						snake.moveAndGrow(nextCell);
 						board.generateFood(board.getBoardSize());
 					}
-					// Move snake
-					snake.move(nextCell);
+					// Move (move without grow)
+					else {
+						snake.moveWithoutGrow(nextCell);
+						//snake.moveAndGrow(nextCell);
+					}
 				}
 				// Not valid move
 				else {
 					snake.setCurrentDirection(Direction.None);
 					gameOver = true;
+					System.out.println();
+					System.out.println();
+					System.out.println("Game over. :(");
+					System.out.println("You ate yourself!");
+					System.out.println("Your length was " +snake.getSnakeBody().size()+ ".");
+					System.out.println();
+					System.out.println();
 				}
 			}
 		}
@@ -91,7 +104,7 @@ public class Game implements Runnable {
 		double nanoSecondConversion = 1000000000.0 / 2; // 60 ticks per second
 		double changeInSeconds = 0;
 
-		while(true) {
+		while(!gameOver) {
 			long now = System.nanoTime();
 
 			changeInSeconds += (now - lastTime) / nanoSecondConversion;

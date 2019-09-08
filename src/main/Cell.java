@@ -11,6 +11,22 @@ public class Cell {
 		this.col = col;
 	}
 
+	
+	
+	
+	
+	
+
+	@Override
+	public String toString() {
+		return "Cell(" +row+ "," +col+ ") [content: " +content+ "]";
+	}
+
+
+
+
+
+
 
 	public CellType getContent() {
 		return content;
