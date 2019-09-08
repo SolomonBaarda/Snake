@@ -92,8 +92,14 @@ public class Board {
 
 
 	public void generateFood(Point boardBoundries) {
-		int newRow = (int) (Math.random() * boardBoundries.y);
-		int newCol = (int) (Math.random() * boardBoundries.x);
+		int newRow;
+		int newCol;
+		
+		do {
+			newRow = (int) (Math.random() * boardBoundries.y);
+			newCol = (int) (Math.random() * boardBoundries.x);
+		}
+		while(getCell(newCol, newRow).getContent() == CellType.Snake);
 
 		getCell(newCol, newRow).setContent(CellType.Food);
 	}

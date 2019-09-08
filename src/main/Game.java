@@ -11,8 +11,8 @@ import utils.Point;
 
 public class Game implements Runnable {
 
-	public static final Point DEFAULT_BOARD_SIZE = new Point(32, 32);
-	public static final int DEFAULT_CELL_SIZE = 24; // Pixels
+	public static final Point DEFAULT_BOARD_SIZE = new Point(24, 24);
+	public static final int DEFAULT_CELL_SIZE = 32; // Pixels
 	public static final Point DEFAULT_DISPLAY_SIZE = new Point(DEFAULT_BOARD_SIZE.x * DEFAULT_CELL_SIZE, DEFAULT_BOARD_SIZE.y * DEFAULT_CELL_SIZE);
 
 	private Snake snake;
@@ -35,7 +35,7 @@ public class Game implements Runnable {
 		display = new Display(DEFAULT_DISPLAY_SIZE);
 		display.getCanvas().addKeyListener(controller);
 
-		renderer = new Renderer(board, DEFAULT_CELL_SIZE);
+		renderer = new Renderer(board, DEFAULT_CELL_SIZE, snake);
 
 		//board.printBoard();
 	}
@@ -108,7 +108,7 @@ public class Game implements Runnable {
 	@Override
 	public void run() {
 		long lastTime = System.nanoTime(); //long 2^63
-		double nanoSecondConversion = 1000000000.0 / 10; // 60 ticks per second
+		double nanoSecondConversion = 1000000000.0 / 8; // 8 ticks per second
 		double changeInSeconds = 0;
 
 		while(!gameOver) {

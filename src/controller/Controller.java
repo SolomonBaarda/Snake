@@ -18,16 +18,16 @@ public class Controller implements KeyListener {
 	public void keyPressed(KeyEvent e) {
 		int key = e.getKeyCode();
 
-		if(key == KeyEvent.VK_W) {
+		if(key == KeyEvent.VK_W || key == KeyEvent.VK_UP) {
 			snake.setCurrentDirection(Direction.North);
 		}
-		if(key == KeyEvent.VK_D) {
+		if(key == KeyEvent.VK_D || key == KeyEvent.VK_RIGHT) {
 			snake.setCurrentDirection(Direction.East);
 		}
-		if(key == KeyEvent.VK_S) {
+		if(key == KeyEvent.VK_S || key == KeyEvent.VK_DOWN) {
 			snake.setCurrentDirection(Direction.South);
 		}
-		if(key == KeyEvent.VK_A) {
+		if(key == KeyEvent.VK_A  || key == KeyEvent.VK_LEFT) {
 			snake.setCurrentDirection(Direction.West);
 		}
 

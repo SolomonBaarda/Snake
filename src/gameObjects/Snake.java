@@ -70,6 +70,10 @@ public class Snake {
 	public Cell getHead() {
 		return head;
 	}
+	
+	public Cell getTail() {
+		return snakeBody.getLast();
+	}
 
 
 	public LinkedList<Cell> getSnakeBody() {
